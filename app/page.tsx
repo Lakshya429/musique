@@ -2,7 +2,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-//@ts-ignore
+//@ts-expect-error
 import { Users, Radio, Headphones } from "lucide-react"
 import { Appbar } from "./components/Appbar"
 import useRedirect from "./hooks/useRedirect"
