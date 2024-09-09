@@ -10,7 +10,7 @@ const UpvoteSchema = z.object({
 export async function POST(req: NextRequest) {
     const session = await getServerSession(authOption);
 
-    // TODO: You can get rid of the db call here 
+
     const user = await prismaClient.user.findFirst({
         where: {
             id: session?.user?.id ?? ""
