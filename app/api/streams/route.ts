@@ -72,7 +72,6 @@ export async function POST(req: NextRequest) {
         });
         console.log(stream);
         
-
         return NextResponse.json({
             ...stream,
             hasUpvoted: false,
@@ -80,9 +79,9 @@ export async function POST(req: NextRequest) {
         })
 
     } catch(e) {
-     
         return NextResponse.json({
-            message: "Error while adding a stream"
+            message: "Error while adding a stream",
+            e 
         }, {
             status: 411
         })

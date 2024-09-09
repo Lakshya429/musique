@@ -28,7 +28,7 @@ interface Video {
     "haveUpvoted": boolean
 }
 
-const REFRESH_INTERVAL_MS =  10000;
+const REFRESH_INTERVAL_MS =  100000;
 
 export default function StreamView({
     creatorId,
