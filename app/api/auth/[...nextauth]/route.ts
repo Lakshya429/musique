@@ -11,7 +11,6 @@ declare module "next-auth" {
         } & DefaultSession["user"]
     }
 }
-
- export  const handler  = NextAuth(authOption)
+const handler  = NextAuth(authOption)
 
 export  { handler as GET, handler as POST }
