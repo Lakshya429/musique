@@ -1,8 +1,7 @@
 import { prismaClient } from "@/app/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-//@ts-ignore
-import youtubesearchapi from "youtube-search-api";
+
 import { YT_REGEX } from "@/app/lib/utils";
 import { authOption } from "@/app/lib/auth";
 import { getServerSession } from "next-auth/next"
@@ -34,16 +33,12 @@ export async function POST(req: NextRequest) {
                 status: 411
             })    
         }
-        console.log("kklk " + isYt) ;
+    
         
 
         const extractedId = data.url.split("?v=")[1];
 
 
-        const res = await youtubesearchapi.GetVideoDetails(extractedId);
-
-        const thumbnails = res.thumbnail.thumbnails || "https://www.google.com/imgres?q=thumbnail&imgurl=https%3A%2F%2Ft3.ftcdn.net%2Fjpg%2F04%2F70%2F37%2F00%2F360_F_470370030_TxVCOsONUxh659YzwP2wCkX0ijAetDh9.jpg&imgrefurl=https%3A%2F%2Fstock.adobe.com%2Fsearch%2Fimages%3Fk%3Dthumbnail%2Bbackground&docid=hfqaQB7r41bjBM&tbnid=MHAWoNFP1kwg0M&vet=12ahUKEwj3tLGgtrOIAxWC4jgGHeCdHG0QM3oFCIIBEAA..i&w=640&h=360&hcb=2&ved=2ahUKEwj3tLGgtrOIAxWC4jgGHeCdHG0QM3oFCIIBEAA";
-        thumbnails.sort((a: {width: number}, b: {width: number}) => a.width < b.width ? -1 : 1);
 
         const existingActiveStream = await prismaClient.stream.count({
             where: {
@@ -65,9 +60,9 @@ export async function POST(req: NextRequest) {
                 url: data.url,
                 extractedId,
                 type: "Youtube",
-                title: res.title ?? "Cant find video",
-                smallImg: (thumbnails.length > 1 ? thumbnails[thumbnails.length - 2].url : thumbnails[thumbnails.length - 1].url) ?? "https://cdn.pixabay.com/photo/2024/02/28/07/42/european-shorthair-8601492_640.jpg",
-                bigImg: thumbnails[thumbnails.length - 1].url ?? "https://cdn.pixabay.com/photo/2024/02/28/07/42/european-shorthair-8601492_640.jpg"
+                title:  "Cant find video",
+                smallImg:  "https://cdn.pixabay.com/photo/2024/02/28/07/42/european-shorthair-8601492_640.jpg",
+                bigImg:  "https://cdn.pixabay.com/photo/2024/02/28/07/42/european-shorthair-8601492_640.jpg"
             }
         });
         console.log(stream);
@@ -81,7 +76,7 @@ export async function POST(req: NextRequest) {
     } catch(e) {
         return NextResponse.json({
             message: "Error while adding a stream",
-            e 
+            e : e
         }, {
             status: 411
         })
